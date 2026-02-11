@@ -46,3 +46,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 npm i react-router-dom
 ```
+
+# Як змінити remote якщо ви скачали інший проект і хочете закинути собі
+```
+git remote get-url origin
+git remote set-url origin https://Ваш_гіт_хаб_link
+
+git push -u main origin -f
+
+
+```
