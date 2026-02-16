@@ -1,3 +1,5 @@
+Закінчити вивід списку автомобілів, які зберігаються у state.
+Ось код класної роботи
 import type {ICarItem} from "../types/ICarItem.ts";
 import {useState} from "react";
 
