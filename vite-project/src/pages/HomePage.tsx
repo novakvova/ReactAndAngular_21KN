@@ -1,5 +1,6 @@
 import type {ICarItem} from "../types/ICarItem.ts";
 import {useState} from "react";
+import {Select} from "antd";
 
 const HomePage = () =>
 {
@@ -13,22 +14,84 @@ const HomePage = () =>
             id: 1,
             mark: "Mercedes",
             model: "Citan",
+            description: "Не бита, не крашена",
             image: "https://cdn1.riastatic.com/photosnew/auto/photo/mercedes-benz_citan__623549116fx.webp",
             price: 15550,
             color: "Сірий",
             year: 2022
-        }
+        },
+        {
+            id: 2,
+            mark: "Nissan",
+            model: "X-Trail",
+            description: "Не бита, не крашена",
+            image: "https://cdn2.riastatic.com/photosnew/auto/photo/nissan_x-trail__576168297hd.webp",
+            price: 3800,
+            color: "Сірий",
+            year: 2002
+        },
+        {
+            id: 3,
+            mark: "Hyundai",
+            model: "S-Coupe",
+            description: "Не бита, не крашена",
+            image: "https://cdn3.riastatic.com/photosnew/auto/photo/hyundai_s-coupe__440301203fx.webp",
+            price: 2500,
+            color: "Червоний",
+            year: 1997
+        },
+        {
+            id: 4,
+            mark: "Skoda",
+            model: "Octavia",
+            description: "Не бита, не крашена",
+            image: "https://cdn2.riastatic.com/photosnew/auto/photo/skoda_octavia__630330942hd.webp",
+            price: 3500 ,
+            color: "Чорний",
+            year: 2008
+        },
     ]);
+
+    const sortByPrice = (value: string) => {
+        // sort - функція списків, що сортує та змінює список за заданими значеннями
+        // ... - деструктуризація
+        if (value === "asc") {
+            setCars([...cars].sort((a, b) => a.price - b.price));
+        } else if (value === "desc") {
+            setCars([...cars].sort((a, b) => b.price - a.price));
+        } else {
+            setCars([...cars].sort((a, b) => a.id - b.id));
+        }
+    }
 
     return (
         <>
-            <h1 className={"text-4xl font-bold text-center"}>Головна сторінка</h1>
-
+            <h1 className={"text-4xl font-bold text-center mb-4"}>Головна сторінка</h1>
+            <div className={"flex mb-4"}>
+                {/*Select - компонент Ant Design, що створює випадаючий список*/}
+                <Select defaultValue={"default"} style={{width: 200}}
+                        onChange={(value: string) => sortByPrice(value)}
+                        options={[
+                    {
+                        value: "default",
+                        label: "За замовчуванням"
+                    },
+                            {
+                                value: "asc", // збільшення
+                                label: "Ціна: від меншої до більшої"
+                            },
+                            {
+                                value: "desc", // зменшення
+                                label: "Ціна: від більшої до меншої"
+                            }
+                ]} />
+            </div>
+            {/*key - змінна для забезпечення ідентифікації списків у віртуальному DOM*/}
             {cars.map(car =>
-            <div className="max-w-sm w-full lg:max-w-full lg:flex">
+            <div key={car.id} className="max-w-sm w-full lg:max-w-full lg:flex mb-4">
                 <div
                     className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-                    style={{backgroundImage: `url('https://cdn1.riastatic.com/photosnew/auto/photo/mercedes-benz_citan__623549116fx.webp')`}} title="Woman holding a mug">
+                    style={{backgroundImage: `url('${car.image}')`}} title="Woman holding a mug">
                 </div>
                 <div
                     className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
@@ -41,19 +104,13 @@ const HomePage = () =>
                             </svg>
                             Members only
                         </p>
-                        <div className="text-gray-900 font-bold text-xl mb-2">Can coffee make you a better developer?
+                        {/**/}
+                        <div className="text-gray-900 font-bold text-xl mb-2">{car.mark} {car.model} {car.year} ({car.color})
                         </div>
-                        <p className="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                            Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-                            nihil.</p>
+                        <p className="text-gray-700 text-base">{car.description}</p>
                     </div>
                     <div className="flex items-center">
-                        <img className="w-10 h-10 rounded-full mr-4" src="/img/jonathan.jpg"
-                             alt="Avatar of Jonathan Reinink"/>
-                        <div className="text-sm">
-                            <p className="text-gray-900 leading-none">Jonathan Reinink</p>
-                            <p className="text-gray-600">Aug 18</p>
-                        </div>
+                        <p className={'font-bold text-lg text-gray-900'}>{car.price}₴</p>
                     </div>
                 </div>
             </div>
