@@ -1,4 +1,5 @@
 import type {ICarItem} from "../../types/ICarItem.ts";
+import ConfirmDeleteModal from "../../componetns/common/ConfirmDeleteModal";
 
 //Вхідні параметри методу
 interface ItemCarProps {
@@ -37,10 +38,11 @@ const ItemCar = (props: ItemCarProps) => {
                         <p className={'font-bold text-lg text-gray-900'}>{car.price}₴</p>
                     </div>
                     <div>
-                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
-                            onClick={() => deleteCar(car.id)}>
-                            Delete
-                        </button>
+                        <ConfirmDeleteModal confirmDeleteHandler={() => deleteCar(car.id)} />
+                        {/*<button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded cursor-pointer"*/}
+                        {/*    onClick={() => deleteCar(car.id)}>*/}
+                        {/*    Delete*/}
+                        {/*</button>*/}
                     </div>
                 </div>
             </div>

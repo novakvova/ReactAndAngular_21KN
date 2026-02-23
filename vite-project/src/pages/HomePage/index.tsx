@@ -70,9 +70,11 @@ const HomePage = () =>
         // console.log("Delete item ", id);
         //будемо змінювати наш список таким чином,
         //щоб лишилися усі елементи крім id
-        const result = confirm("Ви дійсно бажаєте видалити елемент?")
-        if(result === true) //Якщо користувач сказав Так - то ми видалаємо
-            setCars(cars.filter(car => car.id !== id));
+
+        setCars(cars.filter(car => car.id !== id));
+        // const result = confirm("Ви дійсно бажаєте видалити елемент?")
+        // if(result === true) //Якщо користувач сказав Так - то ми видалаємо
+        //     setCars(cars.filter(car => car.id !== id));
     }
 
     return (
