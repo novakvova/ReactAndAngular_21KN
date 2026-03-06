@@ -86,6 +86,15 @@ const HomePage = () =>
         // додаємо авто створивши новий список та переписавши старий
         setCars(prev => [...prev, {...car, id: id}]);
     }
+    //оновлення елемента в списку
+    const editCarHandler = (car: ICarItem) => {
+        setSelectedCar(emptyCar);
+        setCars(prev =>
+            prev.map(c =>
+                c.id === car.id ? { ...c, ...car } : c
+            )
+        );
+    }
 
     const deleteCarHandler = (id: number) => {
         // console.log("Delete item ", id);
@@ -121,7 +130,7 @@ const HomePage = () =>
                         ]} />
             </div>
 
-            <CreateCarItem onCreate={addCarHandler}/>
+            <CreateCarItem onCreate={addCarHandler} editCar={selectedCar} onEdit={editCarHandler}/>
             {/*key - змінна для забезпечення ідентифікації списків у віртуальному DOM*/}
             {cars.map(car =>
                 <ItemCar key={car.id} car = {car}
