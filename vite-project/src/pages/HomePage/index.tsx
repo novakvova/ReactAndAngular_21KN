@@ -5,6 +5,17 @@ import ItemCar from "./ItemCar.tsx";
 import CreateCarItem from "./CreateCarItem.tsx";
 import type {ICreateCar} from "../../types/ICreateCar.ts";
 
+const emptyCar: ICarItem = {
+    id: 0,
+    mark: "",
+    model: "",
+    description: "",
+    image: "",
+    price: 0,
+    color: "",
+    year: 0
+}
+
 const HomePage = () =>
 {
     //useState - спеціальний хук, який призначений для зберігання інформації
@@ -54,6 +65,7 @@ const HomePage = () =>
             year: 2008
         },
     ]);
+    const [selectedCar, setSelectedCar] = useState<ICarItem>(emptyCar);
 
     const sortByPrice = (value: string) => {
         // sort - функція списків, що сортує та змінює список за заданими значеннями
@@ -113,7 +125,7 @@ const HomePage = () =>
             {/*key - змінна для забезпечення ідентифікації списків у віртуальному DOM*/}
             {cars.map(car =>
                 <ItemCar key={car.id} car = {car}
-                    deleteCar={deleteCarHandler}/>
+                    deleteCar={deleteCarHandler} setSelectedCar={setSelectedCar}/>
             )}
 
         </>
