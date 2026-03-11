@@ -1,33 +1,32 @@
 import cat from '../assets/cat.webp'; // Relative path to the image file
-// import Cropper from 'cropperjs';
-// import {useRef} from "react";
-// import Cropper, { ReactCropperElement } from "react-cropper";
+import {useEffect, useRef} from "react";
+import Cropper from "cropperjs";
 
 const TestPage = () => {
     //Посилання на фото, яке буде працювати у Cropper
-    // const imgRef =  useRef(null);
+    const imgRef = useRef<HTMLImageElement | null>(null);
+    const cropperRef = useRef<Cropper | null>(null);
 
-    // const cropperRef = useRef<ReactCropperElement>(null);
-    // const onCrop = () => {
-    //     const cropper = cropperRef.current?.cropper;
-    //     console.log(cropper.getCroppedCanvas().toDataURL());
-    // };
+    useEffect(() => {
+        // const Cropper = window.Cropper;
+        if (imgRef.current) {
+            cropperRef.current = new Cropper(imgRef.current, {
+                aspectRatio: 1,
+                viewMode: 1
+            });
+        }
+
+        return () => {
+            cropperRef.current?.destroy();
+        };
+    },[]);
 
     return (
         <div>
-            {/*<img src={cat}*/}
-            {/*     alt="Фото для редагування кота"*/}
-            {/*     ref={imgRef}*/}
-            {/*/>*/}
-            {/*<Cropper*/}
-            {/*    src="https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg"*/}
-            {/*    style={{ height: 400, width: "100%" }}*/}
-            {/*    // Cropper.js options*/}
-            {/*    initialAspectRatio={16 / 9}*/}
-            {/*    guides={false}*/}
-            {/*    crop={onCrop}*/}
-            {/*    ref={cropperRef}*/}
-            {/*/>*/}
+            <img src={cat}
+                 alt="Фото для редагування кота"
+                 ref={imgRef}
+            />
         </div>
     )
 }
