@@ -1,7 +1,8 @@
 import type {ICreateCar} from "../../types/ICreateCar.ts";
-import {Button, Form, type FormProps, Input} from "antd";
+import {Button, Form, type FormProps, Input, Upload} from "antd";
 import type {ICarItem} from "../../types/ICarItem.ts";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import ImageCropper from "../../componetns/common/ImageCropper";
 
 interface Props {
     onCreate: (car: ICreateCar) => void;
@@ -10,8 +11,11 @@ interface Props {
 }
 
 const CreateCarItem = ({ onCreate, editCar, onEdit }: Props) => {
-
     const [form] = Form.useForm<ICreateCar>();
+    // стан для збереження зображення
+    const [previewImage, setPreviewImage] = useState<string | null>(null);
+    // стан для відкриття модального вікна
+    const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(() => {
             if(editCar)
             {
@@ -32,6 +36,20 @@ const CreateCarItem = ({ onCreate, editCar, onEdit }: Props) => {
 
 
     console.log("editCar", editCar);
+
+    const handleSelectImage = (file: File) => {
+        if (!file) return;
+
+        // ініціалізуємо FileReader для читання файлу
+        const reader = new FileReader();
+        // перетворюємо файл у Base64
+        reader.readAsDataURL(file);
+        // при завантаженні файлу змінюємо стани та відкриваємо модальне вікно
+        reader.onload = () => {
+            setPreviewImage(reader.result as string);
+            setIsModalOpen(true);
+        }
+    }
 
     const onHandlerSubmit = (values: ICreateCar) => {
         console.log("Submit form", values);
@@ -120,7 +138,16 @@ const CreateCarItem = ({ onCreate, editCar, onEdit }: Props) => {
                             name={"image"}
                             rules={[{required: true, message: "Вкажіть фото"}]}
                         >
-                            <Input/>
+                            <Upload
+                                maxCount={1}
+                                showUploadList={false}
+                                beforeUpload={(file) => {
+                                    handleSelectImage(file);
+                                    return false;
+                                }}
+                            >
+                                <Button>Обрати зображення</Button>
+                            </Upload>
                         </Form.Item>
 
                         <div className={"flex justify-center"}>
@@ -133,6 +160,15 @@ const CreateCarItem = ({ onCreate, editCar, onEdit }: Props) => {
                     </div>
 
                 </Form>
+                <ImageCropper
+                    isOpen={isModalOpen}
+                    setIsOpen={setIsModalOpen}
+                    image={previewImage || ""}
+                    onCrop={(base64) => {
+                        form.setFieldsValue({image: base64});
+                        setPreviewImage(null);
+                    }}
+                />
             </div>
         </>
 )
