@@ -1,0 +1,64 @@
+На основі коду класної роботи, додати кнопки для 
+зміни значення у глобальному Store Redux.
+Має змінюватися значеня у store відповідного reducer.
+На 12 балів додати input, у який можна вписувати значення
+для зміни довільно значення у store.
+
+import './App.css'
+import {useSelector} from "react-redux";
+
+function App() {
+    //Отримало доступ до Storage Redux
+    const {value: counter} = useSelector(store => store.counter);
+
+    console.log("Store counter: " + counter);
+
+    return (
+        <>
+            <h1>Привіт із України :)</h1>
+            <h2>Counter: {counter}</h2>
+        </>
+    )
+}
+
+export default App
+
+import {configureStore} from "@reduxjs/toolkit";
+import counterReducer from '../slices/counterSlice.ts';
+
+//Змінна яка глобально зберігає інформацію
+export const store = configureStore({
+    reducer: {
+        counter: counterReducer
+    }
+});
+
+
+// ініціалізація State для даного slice (Reducer)
+import {createSlice} from "@reduxjs/toolkit";
+
+const initState = {
+    value: 0
+}
+
+export const counterSlice = createSlice({
+    name: "counter",
+    initialState: initState,
+    reducers: {
+        //state - те, що зберігається в даному Редюсері
+        increment: (state) => {
+            state.value += 1
+        },
+        decrement: (state) => {
+            state.value -= 1
+        },
+        //через action - можне передавати певне значення, яке зберігається у payload
+        incrementByValue: (state, action) => {
+            state.value = action.payload;
+        }
+    }
+});
+//Дії, які знаходяться в даному Reducer
+export const {increment, decrement, incrementByValue} = counterSlice.actions;
+
+export default counterSlice.reducer;

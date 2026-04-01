@@ -22,3 +22,5 @@
 21.Основи роботи з Redux React ts. Provider, Store, Dispatch.
 22.Підключення і використання Redux на проекту React TypeSctipt. Найпростіший Counter компонентами.
 23.Використання Query RTK React TypeScritp. Створення counterSlice для лічильника.
+24.Робота з кошиком з вкористанням Query RTK React TypeScritp.
+25.Взаємодія із сервером на React TypeSctip View App. Fetch та Axios.
