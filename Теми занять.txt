@@ -24,3 +24,4 @@
 23.Використання Query RTK React TypeScritp. Створення counterSlice для лічильника.
 24.Робота з кошиком з вкористанням Query RTK React TypeScritp.
 25.Взаємодія із сервером на React TypeSctip View App. Fetch та Axios.
+25.Взаємодія із сервером на React TypeSctip View App. Перебір колекції елеменів map.
