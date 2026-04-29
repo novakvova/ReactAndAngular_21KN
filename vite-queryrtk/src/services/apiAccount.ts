@@ -1,13 +1,13 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
 import {createAWSQuery} from "../util/createBaseQuery.ts";
-import type {IPost} from "../types/IPost.ts";
-import type {ICreatePost} from "../types/ICreatePost.ts";
+import type {IRegister} from "../types/account/IRegister.ts";
+import type {IRegisterResponse} from "../types/account/IRegisterResponse.ts";
 
 export const apiAccount = createApi({
     reducerPath: 'account',
     baseQuery: createAWSQuery("account"),
     endpoints: (builder) => ({
-        register: builder.mutation<IPost, ICreatePost>({
+        register: builder.mutation<IRegisterResponse, IRegister>({
             query: (body) => ({
                 url: "register",
                 method: "POST",
