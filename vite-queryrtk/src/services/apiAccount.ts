@@ -1,5 +1,5 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import {createAWSQuery} from "../util/createBaseQuery.ts";
+import {createAWSQuery} from "../util/createAWSQuery.ts";
 import type {IRegister} from "../types/account/IRegister.ts";
 import type {IRegisterResponse} from "../types/account/IRegisterResponse.ts";
 

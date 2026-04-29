@@ -3,6 +3,7 @@ import './App.css'
 import {Route, Routes} from "react-router-dom";
 import UsersPage from "./pages/UsersPage.tsx";
 import CreatePostPage from "./pages/CreatePostPage.tsx";
+import RegisterPage from "./pages/account/RegisterPage.tsx";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
                     <Route path={"posts"}>
                         <Route path={"create"} element={<CreatePostPage/>} />
                     </Route>
+                    <Route path={"register"} element={<RegisterPage/>}/>
                 </Route>
             </Routes>
         </>

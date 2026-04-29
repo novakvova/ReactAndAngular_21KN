@@ -4,6 +4,8 @@ import MyInput from "../../common/MyInput";
 import type {ICreatePost} from "../../types/ICreatePost.ts";
 import {useFormik} from "formik";
 import {useCreatePostMutation} from "../../services/apiPosts.ts";
+import MyInputPassword from "../../common/MyInputPassword";
+import MyInputImage from "../../common/MyInputImage";
 
 const RegisterPage = () => {
 
@@ -37,24 +39,37 @@ const RegisterPage = () => {
             <div className="max-w-2xl mx-auto p-8">
                 <MyHeader text={"Реєстрація"}/>
                 <form onSubmit={handleSubmit}>
-                    <MyInput label={"Назва"}
-                             placeholder={"Вкажіть назву"}
-                             id={"title"}
+                    <MyInput label={"Прізвище"}
+                             placeholder={"Вкажіть прізвище"}
+                             id={"lastName"}
                              onChange={handleChange}
                     />
 
-                    <MyInput label={"Вміст"}
-                             placeholder={"Вкажіть вміст"}
-                             id={"body"}
+                    <MyInput label={"Ім'я"}
+                             placeholder={"Вкажіть ім'я"}
+                             id={"firstName"}
                              onChange={handleChange}
                     />
 
-                    <MyInput label={"Id користувача"}
-                             placeholder={"Вкажіть UserId"}
-                             id={"userId"}
+                    <MyInput label={"Email"}
+                             placeholder={"Вкажіть пошту"}
+                             id={"email"}
                              onChange={handleChange}
                     />
 
+                    <MyInputPassword label={"Пароль"}
+                             placeholder={"Вкажіть пароль"}
+                             id={"password"}
+                             onChange={handleChange}
+                    />
+
+                    <MyInputImage label={"Фото користувача"}
+                                     placeholder={"Оберіть фото"}
+                                     id={"imageFile"}
+                                     onChange={handleChange}
+                                    objectFit = {"cover"}
+                                  previewHeight = {"h-96"}
+                    />
                     {/*<div className="mb-8">*/}
                     {/*    <label htmlFor="username"*/}
                     {/*           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">*/}
