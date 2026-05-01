@@ -1,23 +1,25 @@
 import MyHeader from "../../common/MyHeader";
 import MyButton from "../../common/MyButton";
 import MyInput from "../../common/MyInput";
-import type {ICreatePost} from "../../types/ICreatePost.ts";
 import {useFormik} from "formik";
 import {useCreatePostMutation} from "../../services/apiPosts.ts";
 import MyInputPassword from "../../common/MyInputPassword";
 import MyInputImage from "../../common/MyInputImage";
+import type {IRegister} from "../../types/account/IRegister.ts";
 
 const RegisterPage = () => {
 
     const [createPost] =  useCreatePostMutation();
     //post запит - це спеціальний запит на сервер, який призначений для
     //зміни даних - у більшості випадків для створення інформації
-    const initValues: ICreatePost = {
-        title: "",
-        body: "",
-        userId: 0
+    const initValues: IRegister = {
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        imageFile: null
     }
-    const submitHandler = async (values: ICreatePost) => {
+    const submitHandler = async (values: IRegister) => {
         try {
             console.log("Submit value: ",values);
             //const result = await createPost(values).unwrap();
@@ -32,8 +34,14 @@ const RegisterPage = () => {
         initialValues: initValues,
         onSubmit: submitHandler
     });
+    //SetFieldValue - відповідає за значеня у форму - самого Formik
     //handleChange
-    const {handleSubmit, handleChange} = formik;
+    const {handleSubmit, handleChange, setFieldValue} = formik;
+
+    const onHandleImageSelect = (file: File | null, name: string) => {
+        console.log("Select image handle", file, name);
+        setFieldValue(name, file); //Зберігаємо фото у середину форміка
+    }
 
     return (
         <>
@@ -67,7 +75,7 @@ const RegisterPage = () => {
                     <MyInputImage label={"Фото користувача"}
                                      placeholder={"Оберіть фото"}
                                      id={"imageFile"}
-                                     onChange={handleChange}
+                                     onChange={onHandleImageSelect}
                                     objectFit = {"cover"}
                                   previewHeight = {"h-96"}
                     />
