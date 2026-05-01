@@ -19,8 +19,9 @@ const RegisterPage = () => {
     }
     const submitHandler = async (values: ICreatePost) => {
         try {
-            const result = await createPost(values).unwrap();
-            console.log("Відправка запиту на сервер", result);
+            console.log("Submit value: ",values);
+            //const result = await createPost(values).unwrap();
+            //console.log("Відправка запиту на сервер", result);
         }catch(error) {
             console.log("Стался халепа, щось пішло не так", error)
         }
