@@ -5,7 +5,7 @@ import type {IRegisterResponse} from "../types/account/IRegisterResponse.ts";
 
 export const apiAccount = createApi({
     reducerPath: 'account',
-    baseQuery: createAWSQuery("account"),
+    baseQuery: createAWSQuery("api/account"),
     endpoints: (builder) => ({
         register: builder.mutation<IRegisterResponse, IRegister>({
             query: (body) => ({
