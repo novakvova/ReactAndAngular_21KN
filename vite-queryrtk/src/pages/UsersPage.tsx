@@ -9,10 +9,15 @@ const UsersPage = () => {
 
     return (
         <>
-            <MyHeader text={"Список користувачів"} />
-            <MyLink text={"Перейти до створення"} to={"/posts/create"} />
-            <MyLink text={"Реєстрація"} to={"/register"} />
-            <MyLink text={"Вхід"} to={"/login"} />
+            <div>
+                <MyHeader text={"Список користувачів"} />
+            </div>
+            <div className={"mt-4"}>
+                <MyLink text={"Перейти до створення"} to={"/posts/create"} />
+                <MyLink text={"Реєстрація"} to={"/register"} />
+                <MyLink text={"Вхід"} to={"/login"} />
+            </div>
+
         </>
     )
 }

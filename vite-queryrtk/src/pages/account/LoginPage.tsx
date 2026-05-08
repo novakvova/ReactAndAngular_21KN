@@ -5,6 +5,7 @@ import {useFormik} from "formik";
 import MyInputPassword from "../../common/MyInputPassword";
 import {useLoginMutation} from "../../services/apiAccount.ts";
 import type {ILogin} from "../../types/account/ILogin.ts";
+import MyLink from "../../common/MyLink";
 
 const LoginPage = () => {
 
@@ -71,6 +72,7 @@ const LoginPage = () => {
 
 
                     <MyButton text={"Вхід"}/>
+                    <MyLink text={"Пеерейти до реєстарції"} to={"/register"} />
                 </form>
             </div>
         </>

@@ -7,6 +7,7 @@ import MyInputImage from "../../common/MyInputImage";
 import type {IRegister} from "../../types/account/IRegister.ts";
 import {useRegisterMutation} from "../../services/apiAccount.ts";
 import {useNavigate} from "react-router-dom";
+import MyLink from "../../common/MyLink";
 
 const RegisterPage = () => {
 
@@ -25,8 +26,8 @@ const RegisterPage = () => {
         try {
             console.log("Submit value: ",values);
             const result = await registerUser(values).unwrap();
+            console.log("Результат реєстрації", result);
             navigate("/login");
-            // console.log("Відправка запиту на сервер", result);
         }
         catch(error: any) {
             alert(error.data.errors);
@@ -99,7 +100,8 @@ const RegisterPage = () => {
                     {/*</div>*/}
 
 
-                    <MyButton text={"Створити"}/>
+                    <MyButton text={"Реєстрація"}/>
+                    <MyLink text={"Вхід"} to={"/login"} />
                 </form>
             </div>
         </>
