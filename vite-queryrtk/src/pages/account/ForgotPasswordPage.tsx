@@ -5,6 +5,7 @@ import {useFormik} from "formik";
 import {useForgotPasswordMutation} from "../../services/apiAccount.ts";
 import type {IForgotPassword} from "../../types/account/IForgotPassword.ts";
 import MyLink from "../../common/MyLink";
+import {useNavigate} from "react-router-dom";
 
 const ForgotPasswordPage = () => {
 
@@ -14,10 +15,14 @@ const ForgotPasswordPage = () => {
     const initValues: IForgotPassword = {
         email: ""
     }
+
+    const navigate = useNavigate();
+
     const submitHandler = async (values: IForgotPassword) => {
         try {
             console.log("Submit value: ",values);
             await forgotPassword(values).unwrap();
+            navigate("/forgot-password-success");
         }
         catch(error) {
             alert("Даної пошти не знайдено");
