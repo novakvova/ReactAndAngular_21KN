@@ -71,8 +71,15 @@ const LoginPage = () => {
                     {/*</div>*/}
 
 
-                    <MyButton text={"Вхід"}/>
-                    <MyLink text={"Пеерейти до реєстарції"} to={"/register"} />
+                    <div className={"flex gap-3"}>
+                        <MyButton text={"Вхід"}/>
+                        <MyLink text={"Пеерейти до реєстарції"} to={"/register"} />
+                    </div>
+
+                    <div className={"mt-4 float float-right"}>
+                        <MyLink text={"Забувся пароль"} to={"/forgot-password"} />
+                    </div>
+
                 </form>
             </div>
         </>
