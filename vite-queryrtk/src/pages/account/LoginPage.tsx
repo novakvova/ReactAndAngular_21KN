@@ -3,33 +3,27 @@ import MyButton from "../../common/MyButton";
 import MyInput from "../../common/MyInput";
 import {useFormik} from "formik";
 import MyInputPassword from "../../common/MyInputPassword";
-import MyInputImage from "../../common/MyInputImage";
-import type {IRegister} from "../../types/account/IRegister.ts";
-import {useRegisterMutation} from "../../services/apiAccount.ts";
-import {useNavigate} from "react-router-dom";
+import {useLoginMutation} from "../../services/apiAccount.ts";
+import type {ILogin} from "../../types/account/ILogin.ts";
 
-const RegisterPage = () => {
+const LoginPage = () => {
 
-    const [registerUser] =  useRegisterMutation(); //реєстрація користувача
+    const [loginUser] =  useLoginMutation(); //вхід користувача
     //post запит - це спеціальний запит на сервер, який призначений для
     //зміни даних - у більшості випадків для створення інформації
-    const initValues: IRegister = {
-        firstName: "",
-        lastName: "",
+    const initValues: ILogin = {
         email: "",
-        password: "",
-        imageFile: null
+        password: ""
     }
-    const navigate = useNavigate();
-    const submitHandler = async (values: IRegister) => {
+    const submitHandler = async (values: ILogin) => {
         try {
             console.log("Submit value: ",values);
-            const result = await registerUser(values).unwrap();
-            navigate("/login");
-            // console.log("Відправка запиту на сервер", result);
+            const result = await loginUser(values).unwrap();
+            console.log("Відправка запиту на сервер", result);
+            alert(result.token);
         }
-        catch(error: any) {
-            alert(error.data.errors);
+        catch(error) {
+            alert("Дані вказано не вірно!");
             console.log("Сталася халепа, щось пішло не так", error)
         }
         // console.log(values);
@@ -41,29 +35,13 @@ const RegisterPage = () => {
     });
     //SetFieldValue - відповідає за значеня у форму - самого Formik
     //handleChange
-    const {handleSubmit, handleChange, setFieldValue} = formik;
-
-    const onHandleImageSelect = (file: File | null, name: string) => {
-        console.log("Select image handle", file, name);
-        setFieldValue(name, file); //Зберігаємо фото у середину форміка
-    }
+    const {handleSubmit, handleChange} = formik;
 
     return (
         <>
             <div className="max-w-2xl mx-auto p-8">
-                <MyHeader text={"Реєстрація"}/>
+                <MyHeader text={"Вхід"}/>
                 <form onSubmit={handleSubmit}>
-                    <MyInput label={"Прізвище"}
-                             placeholder={"Вкажіть прізвище"}
-                             id={"lastName"}
-                             onChange={handleChange}
-                    />
-
-                    <MyInput label={"Ім'я"}
-                             placeholder={"Вкажіть ім'я"}
-                             id={"firstName"}
-                             onChange={handleChange}
-                    />
 
                     <MyInput label={"Email"}
                              placeholder={"Вкажіть пошту"}
@@ -77,13 +55,6 @@ const RegisterPage = () => {
                              onChange={handleChange}
                     />
 
-                    <MyInputImage label={"Фото користувача"}
-                                     placeholder={"Оберіть фото"}
-                                     id={"imageFile"}
-                                     onChange={onHandleImageSelect}
-                                    objectFit = {"cover"}
-                                  previewHeight = {"h-96"}
-                    />
                     {/*<div className="mb-8">*/}
                     {/*    <label htmlFor="username"*/}
                     {/*           className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">*/}
@@ -99,11 +70,11 @@ const RegisterPage = () => {
                     {/*</div>*/}
 
 
-                    <MyButton text={"Створити"}/>
+                    <MyButton text={"Вхід"}/>
                 </form>
             </div>
         </>
     )
 }
 
-export default RegisterPage;
+export default LoginPage;

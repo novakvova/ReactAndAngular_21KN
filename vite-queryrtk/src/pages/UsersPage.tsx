@@ -11,6 +11,8 @@ const UsersPage = () => {
         <>
             <MyHeader text={"Список користувачів"} />
             <MyLink text={"Перейти до створення"} to={"/posts/create"} />
+            <MyLink text={"Реєстрація"} to={"/register"} />
+            <MyLink text={"Вхід"} to={"/login"} />
         </>
     )
 }

@@ -21,10 +21,21 @@ export const apiAccount = createApi({
                     body: form
                 }
             }
+        }),
+        login: builder.mutation<IRegisterResponse, ILogin>({
+            query: (data) =>
+            {
+                return {
+                    url: "login",
+                    method: "POST",
+                    body: data
+                }
+            }
         })
     })
 });
 
 export const {
-    useRegisterMutation
+    useRegisterMutation,
+    useLoginMutation,
 }  = apiAccount;
