@@ -1,16 +1,19 @@
 import MyHeader from "../../common/MyHeader";
 import MyButton from "../../common/MyButton";
-import MyInput from "../../common/MyInput";
 import {useFormik} from "formik";
-import {useForgotPasswordMutation} from "../../services/apiAccount.ts";
-import type {IForgotPassword} from "../../types/account/IForgotPassword.ts";
 import MyLink from "../../common/MyLink";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import type {IResetPassword} from "../../types/account/IResetPassword.ts";
 import MyInputPassword from "../../common/MyInputPassword";
 
 const ResetPasswordPage = () => {
 
+    const [searchParams] = useSearchParams();
+    const token = decodeURIComponent(searchParams.get("token") ?? "");
+    const email = decodeURIComponent(searchParams.get("email") ?? "");
+
+    console.log("token", token);
+    console.log("email", email);
     //const [forgotPassword] =  useForgotPasswordMutation(); //вхід користувача
     //post запит - це спеціальний запит на сервер, який призначений для
     //зміни даних - у більшості випадків для створення інформації
@@ -18,6 +21,7 @@ const ResetPasswordPage = () => {
         newPassword: "",
         confirmNewPassword: ""
     }
+
 
     const navigate = useNavigate();
 
