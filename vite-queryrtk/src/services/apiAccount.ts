@@ -11,10 +11,10 @@ export const apiAccount = createApi({
     baseQuery: createAWSQuery("api/account"),
     endpoints: (builder) => ({
         register: builder.mutation<IRegisterResponse, IRegister>({
-            query: (data) =>
+            query: (body) =>
             {
-                console.log("Submit Data Query", data);
-                const form = serialize(data);
+                console.log("Submit Data Query", body);
+                const form = serialize(body);
                 console.log("is form DATA", form instanceof FormData); // має бути true
 
                 return {
