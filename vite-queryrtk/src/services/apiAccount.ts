@@ -43,7 +43,17 @@ export const apiAccount = createApi({
                     body: data
                 }
             }
-        })
+        }),
+        resetPassword: builder.mutation<void, IResetPassword>({
+            query: (data) =>
+            {
+                return {
+                    url: "resetPassword",
+                    method: "POST",
+                    body: data
+                }
+            }
+        }),
     })
 });
 
@@ -51,4 +61,5 @@ export const {
     useRegisterMutation,
     useLoginMutation,
     useForgotPasswordMutation,
+    useResetPasswordMutation,
 }  = apiAccount;
