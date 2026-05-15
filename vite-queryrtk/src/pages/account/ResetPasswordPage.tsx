@@ -5,6 +5,8 @@ import MyLink from "../../common/MyLink";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import type {IResetPassword} from "../../types/account/IResetPassword.ts";
 import MyInputPassword from "../../common/MyInputPassword";
+import {useResetPasswordMutation} from "../../services/apiAccount.ts";
+import type {IResetPasswordRequest} from "../../types/account/IResetPasswordRequest.ts";
 
 const ResetPasswordPage = () => {
 
@@ -12,9 +14,9 @@ const ResetPasswordPage = () => {
     const token = decodeURIComponent(searchParams.get("token") ?? "");
     const email = decodeURIComponent(searchParams.get("email") ?? "");
 
-    console.log("token", token);
-    console.log("email", email);
-    //const [forgotPassword] =  useForgotPasswordMutation(); //вхід користувача
+    //console.log("token", token);
+    //console.log("email", email);
+    const [resetPassword] =  useResetPasswordMutation(); //змінити пароль
     //post запит - це спеціальний запит на сервер, який призначений для
     //зміни даних - у більшості випадків для створення інформації
     const initValues: IResetPassword = {
@@ -27,9 +29,14 @@ const ResetPasswordPage = () => {
 
     const submitHandler = async (values: IResetPassword) => {
         try {
-            console.log("Submit value: ", values);
-            //await forgotPassword(values).unwrap();
-            //navigate("/forgot-password-success");
+            console.log("Submit value reset: ", values);
+            const model : IResetPasswordRequest = {
+                newPassword: values.newPassword,
+                email: email,
+                token: token
+            }
+            await resetPassword(model).unwrap();
+            navigate("/login");
         } catch (error) {
             alert("Даної пошти не знайдено");
             console.log("Сталася халепа, щось пішло не так", error)
