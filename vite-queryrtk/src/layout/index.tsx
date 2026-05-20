@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link, Outlet, useLocation} from 'react-router-dom';
 
 const Layout: React.FC = () => {
     const location = useLocation();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const isActive = (path: string): boolean => {
         return location.pathname === path;
+    };
+
+    const handleNavClick = () => {
+        setIsMenuOpen(false);
     };
 
     //які маємо сторінки
@@ -35,7 +40,7 @@ const Layout: React.FC = () => {
                             </span>
                         </Link>
 
-                        {/* Navigation Links */}
+                        {/* Navigation Links - Desktop */}
                         <div className="hidden md:flex items-center gap-8">
                             {navLinks.map((link) => (
                                 <Link
@@ -56,12 +61,36 @@ const Layout: React.FC = () => {
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <button className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            aria-label="Toggle menu"
+                        >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
                     </div>
+
+                    {/* Navigation Links - Mobile */}
+                    {isMenuOpen && (
+                        <div className="md:hidden pb-4 border-t border-gray-200 dark:border-gray-700 animate-in fade-in slide-in-from-top-2 duration-200">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.path}
+                                    to={link.path}
+                                    onClick={handleNavClick}
+                                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors mb-2 ${
+                                        isActive(link.path)
+                                            ? 'text-blue-600 dark:text-blue-400 bg-gray-200 dark:bg-gray-700'
+                                            : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                                    }`}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </div>
+                    )}
                 </nav>
             </header>
 
