@@ -7,7 +7,6 @@ import MyInputImage from "../../common/MyInputImage";
 import type {IRegister} from "../../types/account/IRegister.ts";
 import {useRegisterMutation} from "../../services/apiAccount.ts";
 import {useNavigate} from "react-router-dom";
-import MyLink from "../../common/MyLink";
 
 const RegisterPage = () => {
 
@@ -99,9 +98,7 @@ const RegisterPage = () => {
                     {/*    <p className="mt-1 text-xs text-red-600 dark:text-red-400">Username вже зайнято</p>*/}
                     {/*</div>*/}
 
-
                     <MyButton text={"Реєстрація"}/>
-                    <MyLink text={"Вхід"} to={"/login"} />
                 </form>
             </div>
         </>
